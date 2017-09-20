@@ -39,7 +39,7 @@ public class Homescreen extends JFrame {
     
         // creating main button JPanel (blue)
         btnPanel = new JPanel();
-        btnPanel.setBackground(Color.GREEN);
+        btnPanel.setBackground(Color.PINK);
         btnPanel.setBounds(0, 0, 1100, 50);
         btnPanel.setPreferredSize(new Dimension(1100, 50));
         getContentPane().add(btnPanel);
