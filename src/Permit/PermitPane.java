@@ -15,12 +15,6 @@ import Permit.CCCToCounPanel;
 import Permit.CCCApprovedPanel;
 import Permit.CCCToClientPanel;
 
-/*import Sales.CustomerPanel;
-import Sales.ExtimationPanel;
-import Sales.FollowUpPanel;
-import Sales.QuotePanel;
-import Sales.SiteCheckPanel;*/
-
 public class PermitPane extends JPanel
 {
         public PermitPane()

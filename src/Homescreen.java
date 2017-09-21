@@ -66,7 +66,7 @@ public class Homescreen extends JFrame {
         schedulePanel = new SchedulePane(); 
         salesPanel = new SalesPane();  
         installPanel = new InstallsPane();
-       // permitPanel = new PermitPane();
+        permitPanel = new PermitPane();
         
         
         //Action listeners for each button
