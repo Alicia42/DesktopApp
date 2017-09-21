@@ -16,24 +16,20 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.JCheckBox;
 import java.awt.Choice;
+import java.awt.List;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerDateModel;
+import java.util.Date;
+import java.util.Calendar;
 
 class EstimationPanel extends JPanel {
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField txtBxFire;
+	private JTextField txtBxPrice;
+	private JTextField txtBxComment;
 	
 
 	public EstimationPanel() {
 		setLayout(null);
-		
-		JComboBox sortcombx = new JComboBox();
-		sortcombx.setModel(new DefaultComboBoxModel(new String[] {"All", "Last Name"}));
-		sortcombx.setBounds(44, 22, 164, 20);
-		
-		add(sortcombx);
-		
-		JButton btnRefresh = new JButton("Refresh List");
-		btnRefresh.setBounds(238, 21, 89, 23);
-		add(btnRefresh);
 		
 		JTable table = new JTable(new DefaultTableModel(null, new Object[]{"Name", "Site Address", "Phone number"}));
 		table.setShowGrid(false);
@@ -45,86 +41,127 @@ class EstimationPanel extends JPanel {
 		
 		//Make table scrollable
 		
-		table.setBounds(44, 60, 377, 458);
+		table.setBounds(37, 26, 377, 458);
 		add(table);
 		
 		JLabel lblName = new JLabel("Name:");
-		lblName.setBounds(497, 60, 104, 14);
+		lblName.setBounds(497, 36, 104, 14);
 		add(lblName);
 		
 		JLabel lblSAddr = new JLabel("Site Address:");
-		lblSAddr.setBounds(497, 92, 104, 14);
+		lblSAddr.setBounds(497, 68, 104, 14);
 		add(lblSAddr);
 		
 		JLabel lblSSuburb = new JLabel("Suburb:");
-		lblSSuburb.setBounds(497, 117, 104, 14);
+		lblSSuburb.setBounds(497, 93, 104, 14);
 		add(lblSSuburb);
 		
 		JLabel lblPostalAddress = new JLabel("Postal Address:");
-		lblPostalAddress.setBounds(497, 142, 104, 14);
+		lblPostalAddress.setBounds(497, 118, 104, 14);
 		add(lblPostalAddress);
 		
 		JLabel lblPhoneNumber = new JLabel("Phone Number:");
-		lblPhoneNumber.setBounds(497, 192, 104, 14);
+		lblPhoneNumber.setBounds(497, 168, 104, 14);
 		add(lblPhoneNumber);
 		
 		JLabel lblPAddress = new JLabel("Suburb:");
-		lblPAddress.setBounds(497, 167, 104, 14);
+		lblPAddress.setBounds(497, 143, 104, 14);
 		add(lblPAddress);
 		
 		JLabel lblEmail = new JLabel("Email:");
-		lblEmail.setBounds(497, 217, 104, 14);
+		lblEmail.setBounds(497, 193, 104, 14);
 		add(lblEmail);
 		
 		JTextArea txtAreaCustInfo = new JTextArea();
 		txtAreaCustInfo.setEditable(false);
-		txtAreaCustInfo.setBounds(631, 55, 428, 195);
+		txtAreaCustInfo.setBounds(631, 31, 428, 195);
 		add(txtAreaCustInfo);
 		
 		JLabel siteAddrLbl = new JLabel("Fire Place");
-	  	siteAddrLbl.setBounds(447, 286, 201, 20);
+	  	siteAddrLbl.setBounds(434, 218, 201, 20);
 	  	siteAddrLbl.setFont(new java.awt.Font("Arial", Font.BOLD, 20));
 	  	add(siteAddrLbl);
 		
-		JLabel lblfire = new JLabel("Fire:");
-		lblfire.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblfire.setBounds(497, 330, 46, 14);
-		add(lblfire);
+		txtBxFire = new JTextField();
+		txtBxFire.setBounds(631, 249, 218, 20);
+		add(txtBxFire);
+		txtBxFire.setColumns(10);
 		
-		textField = new JTextField();
-		textField.setBounds(631, 324, 218, 20);
-		add(textField);
-		textField.setColumns(10);
-		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(930, 324, 129, 20);
-		add(textField_1);
+		txtBxPrice = new JTextField();
+		txtBxPrice.setColumns(10);
+		txtBxPrice.setBounds(930, 249, 129, 20);
+		add(txtBxPrice);
 		
 		JLabel lblPrice = new JLabel("Price:");
 		lblPrice.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblPrice.setBounds(880, 327, 46, 14);
+		lblPrice.setBounds(880, 252, 46, 14);
 		add(lblPrice);
 		
 		JComboBox comBxInstType = new JComboBox();
-		comBxInstType.setBounds(631, 367, 341, 20);
+		comBxInstType.setBounds(631, 284, 428, 20);
 		add(comBxInstType);
 		
-		JLabel lblNewLabel = new JLabel("Install Type:");
-		lblNewLabel.setBounds(497, 370, 104, 14);
-		add(lblNewLabel);
+		JLabel lblInstallType = new JLabel("Install Type:");
+		lblInstallType.setBounds(494, 281, 104, 14);
+		add(lblInstallType);
 		
-		JLabel lblNewLabel_1 = new JLabel("Site Check:");
-		lblNewLabel_1.setBounds(497, 414, 104, 14);
-		add(lblNewLabel_1);
+		JLabel lblSiteCheck = new JLabel("Site Check:");
+		lblSiteCheck.setBounds(497, 315, 104, 14);
+		add(lblSiteCheck);
 		
 		JCheckBox chckbxToBook = new JCheckBox("To Book:");
-		chckbxToBook.setBounds(631, 410, 97, 23);
+		chckbxToBook.setBounds(631, 311, 74, 23);
 		add(chckbxToBook);
 		
-		Choice choice = new Choice();
-		choice.setBounds(776, 414, 173, 20);
-		add(choice);
+		Choice drpBxSChkDoneBy = new Choice();
+		drpBxSChkDoneBy.setBounds(631, 340, 218, 20);
+		add(drpBxSChkDoneBy);
+		
+		JLabel lblSChkDoneBy = new JLabel("Site Check Done By:");
+		lblSChkDoneBy.setBounds(497, 346, 128, 14);
+		add(lblSChkDoneBy);
+		
+		JSpinner spnTimeDate = new JSpinner();
+		spnTimeDate.setModel(new SpinnerDateModel(new Date(1505908800000L), null, null, Calendar.DAY_OF_YEAR));
+		spnTimeDate.setBounds(724, 315, 335, 20);
+		add(spnTimeDate);
+		
+		JCheckBox chckbxSChkComp = new JCheckBox("Site Check Completed");
+		chckbxSChkComp.setBounds(880, 340, 171, 23);
+		add(chckbxSChkComp);
+		
+		txtBxComment = new JTextField();
+		txtBxComment.setBounds(631, 370, 428, 62);
+		add(txtBxComment);
+		txtBxComment.setColumns(10);
+		
+		JLabel lblComment = new JLabel("Comment:");
+		lblComment.setBounds(497, 370, 124, 14);
+		add(lblComment);
+		
+		JLabel lblSalesPrsn = new JLabel("Sales Person:");
+		lblSalesPrsn.setBounds(497, 449, 104, 14);
+		add(lblSalesPrsn);
+		
+		JComboBox comBxSlsPerson = new JComboBox();
+		comBxSlsPerson.setBounds(631, 443, 218, 20);
+		add(comBxSlsPerson);
+		
+		JLabel lblFire = new JLabel("Fire:");
+		lblFire.setBounds(494, 252, 104, 14);
+		add(lblFire);
+		
+		JButton btnSendEmail = new JButton("Send Email");
+		btnSendEmail.setBounds(493, 500, 148, 23);
+		add(btnSendEmail);
+		
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.setBounds(690, 500, 148, 23);
+		add(btnCancel);
+		
+		JButton btnSave = new JButton("Save Details");
+		btnSave.setBounds(911, 500, 148, 23);
+		add(btnSave);
 		
 		
 		/*JComboBox jcb = new JComboBox();
