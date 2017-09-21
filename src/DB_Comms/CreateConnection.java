@@ -22,9 +22,14 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
+import javax.swing.JOptionPane;
+
 public class CreateConnection implements Connection {
 	
-	   static final String dbURL = "jdbc:sqlserver://wchdb.cnfoxyxq90wv.ap-southeast-2.rds.amazonaws.com:1433";
+
+	
+	
+	static final String dbURL = "jdbc:sqlserver://wchdb.cnfoxyxq90wv.ap-southeast-2.rds.amazonaws.com:1433";
 
 	   static final String user = "Khgv92367hdkfug9";
 	   static final String pass = "Locei02h84b5KJUVaW";
@@ -32,17 +37,13 @@ public class CreateConnection implements Connection {
 	  public Connection CreateConnection() {
 		  
 	        Connection conn = null;
-	        Connection conn2 = null;
-	        
-	        System.out.println("Connecting to a selected database...");
- 
+
 	        try {
-	            
 	          
 	            conn = DriverManager.getConnection(dbURL, user, pass);
 	            
 	            if (conn != null) {
-	            	
+
 	            	return conn;
 	            }
 	        } catch (SQLException e) {
@@ -50,10 +51,11 @@ public class CreateConnection implements Connection {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-	        System.out.println("No Connection!");
-			return conn2;
-    
-	   }
+	        
+	        JOptionPane.showMessageDialog(null, "Connection Failed!");	        
+			return conn;
+
+	  }
 
 	@Override
 	public boolean isWrapperFor(Class<?> arg0) throws SQLException {
