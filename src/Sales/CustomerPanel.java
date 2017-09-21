@@ -143,19 +143,9 @@ class CustomerPanel extends JPanel {
 	  	cancelBtn.setBounds(537, 489, 135, 25);
 	  	add(cancelBtn);
 	  	
-	  	
 	  	JButton createCustBtn = new JButton("Create Customer");
 	  	createCustBtn.setBounds(735, 489, 135, 25);
 	  	add(createCustBtn);
 	  	
-	  	
-	  	
-	  	
-	  	
-	  	
-
-
-
-	    
 	  }
 }

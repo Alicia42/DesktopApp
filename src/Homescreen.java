@@ -114,7 +114,8 @@ public class Homescreen extends JFrame {
         		contentPanel.repaint();
         	}
         });
-                
+        //Making the schedule the first view the user sees.  
+        contentPanel.add(schedulePanel);        		        
         //Load the frame
         pack();
     }
@@ -124,6 +125,7 @@ public class Homescreen extends JFrame {
         // creating JFrame object and setting it visible
         Homescreen frame = new Homescreen();
         frame.setVisible(true);
+        
 
     }
 }
