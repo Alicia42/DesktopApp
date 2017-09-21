@@ -37,7 +37,8 @@ class PermitsReqPanel extends JPanel {
 	
 	private int [] columnWidth = {6, 30, 30, 20, 20, 20};
 	private String procedure = "EXEC AWS_WCH_DB.dbo.[p_PermitsRequired]";  
-	private String result = "EXEC AWS_WCH_DB.dbo.[p_PermitsDetails] ";  
+	private String result2 = "EXEC AWS_WCH_DB.dbo.[p_PermitsDetails] ";
+	private String result3 = "EXEC AWS_WCH_DB.dbo.[p_PermitFire] ";
 	private String param = "";  
 	
 	private String[] doctype = {"NONE","Rates Notice","Certificate of Title", "Lease Agreement", "Sale & Purchase", "Other"};
@@ -75,6 +76,18 @@ class PermitsReqPanel extends JPanel {
 	private JLabel fireIDLbl;
 	private JTextField fireIDTxtBx;
 	
+	private JLabel makeLbl;
+	private JTextField makeTxtBx;
+	private JLabel modelLbl;
+	private JTextField modelTxtBx;
+    
+	private JLabel lifeLbl;
+	private JTextField lifeTxtBx;	
+	private JLabel ecanLbl;
+	private JTextField ecanTxtBx;
+	private JLabel nelsonLbl;
+	private JTextField nelsonTxtBx;
+	
 	private JLabel ownerLbl;
 	private JComboBox ownerCmbo;
 	private JLabel fireLbl;
@@ -102,7 +115,7 @@ class PermitsReqPanel extends JPanel {
 	        infoPanel.setLayout(null);
 	        
 	        detailsTxtArea = new JTextArea("");
-	        detailsTxtArea.setBounds(20, 20, 200, 260);
+	        detailsTxtArea.setBounds(20, 20, 250, 260);
 	        detailsTxtArea.setBorder(BorderFactory.createLineBorder(Color.black));
 	        detailsTxtArea.setLineWrap(true);
 	        detailsTxtArea.setEditable(false);
@@ -115,102 +128,139 @@ class PermitsReqPanel extends JPanel {
 	        detailsTxtArea.append("They will wrap (badly) if too long!");
      	        
 	        lotLbl = new JLabel("Lot:");
-	        lotLbl.setBounds(250, 20, 70, 20);
+	        lotLbl.setBounds(300, 20, 70, 20);
 	        infoPanel.add(lotLbl);
 	        lotTxtBx = new JTextField(10);
-	        lotTxtBx.setBounds(320, 20, 150, 20);
+	        lotTxtBx.setBounds(370, 20, 150, 20);
 	        infoPanel.add(lotTxtBx);
 	        
 	        dpLbl = new JLabel("DP:");
-	        dpLbl.setBounds(500, 20, 70, 20);
+	        dpLbl.setBounds(550, 20, 70, 20);
 	        infoPanel.add(dpLbl);
 	        dpTxtBx = new JTextField(10);
-	        dpTxtBx.setBounds(570, 20, 150, 20);
+	        dpTxtBx.setBounds(620, 20, 150, 20);
 	        infoPanel.add(dpTxtBx);
 	        
 	        consentLbl = new JLabel("Consent:");
-	        consentLbl.setBounds(750, 20, 70, 20);
+	        consentLbl.setBounds(800, 20, 70, 20);
 	        infoPanel.add(consentLbl);
 	        consentTxtBx = new JTextField(10);
-	        consentTxtBx.setBounds(820, 20, 150, 20);
+	        consentTxtBx.setBounds(870, 20, 150, 20);
 	        infoPanel.add(consentTxtBx);
 	        
 	        buildingLbl = new JLabel("Building:");
-	        buildingLbl.setBounds(250, 50, 70, 20);
+	        buildingLbl.setBounds(300, 50, 70, 20);
 	        infoPanel.add(buildingLbl);
 	        buildingTxtBx = new JTextField("Residence", 10);
-	        buildingTxtBx.setBounds(320, 50, 150, 20);
+	        buildingTxtBx.setBounds(370, 50, 150, 20);
 	        infoPanel.add(buildingTxtBx);
 	        
 	        levelLbl = new JLabel("Unit/Level:");
-	        levelLbl.setBounds(500, 50, 70, 20);
+	        levelLbl.setBounds(550, 50, 70, 20);
 	        infoPanel.add(levelLbl);
 	        levelTxtBx = new JTextField(10);
-	        levelTxtBx.setBounds(570, 50, 150, 20);
+	        levelTxtBx.setBounds(620, 50, 150, 20);
 	        infoPanel.add(levelTxtBx);
 	        
 	        valueLbl = new JLabel("Value:");
-	        valueLbl.setBounds(750, 50, 70, 20);
+	        valueLbl.setBounds(800, 50, 70, 20);
 	        infoPanel.add(valueLbl);
 	        valueTxtBx = new JTextField(10);
-	        valueTxtBx.setBounds(820, 50, 150, 20);
+	        valueTxtBx.setBounds(870, 50, 150, 20);
 	        infoPanel.add(valueTxtBx);
 	        	        
 	        yearLbl = new JLabel("Year:");
-	        yearLbl.setBounds(250, 80, 70, 20);
+	        yearLbl.setBounds(300, 80, 70, 20);
 	        infoPanel.add(yearLbl);
 	        yearTxtBx = new JTextField(10);
-	        yearTxtBx.setBounds(320, 80, 150, 20);
+	        yearTxtBx.setBounds(370, 80, 150, 20);
 	        infoPanel.add(yearTxtBx);
 	        
 	        locationLbl = new JLabel("Location:");
-	        locationLbl.setBounds(500, 80, 70, 20);
+	        locationLbl.setBounds(550, 80, 70, 20);
 	        infoPanel.add(locationLbl);
 	        locationTxtBx = new JTextField(10);
-	        locationTxtBx.setBounds(570, 80, 150, 20);
+	        locationTxtBx.setBounds(620, 80, 150, 20);
 	        infoPanel.add(locationTxtBx);
-	        
-	        fireIDLbl = new JLabel("Fire Code:");
-	        fireIDLbl.setBounds(750, 80, 70, 20);
-	        infoPanel.add(fireIDLbl);
-	        fireIDTxtBx = new JTextField(10);
-	        fireIDTxtBx.setBounds(820, 80, 150, 20);
-	        infoPanel.add(fireIDTxtBx);
 	        	        	        
 	        ownerLbl = new JLabel("Proof:");
-	        ownerLbl.setBounds(250, 130, 70, 20);
+	        ownerLbl.setBounds(800, 80, 70, 20);
 	        infoPanel.add(ownerLbl);
 	        ownerCmbo = new JComboBox(doctype);
 	        ownerCmbo.setSelectedIndex(0);
 	        ownerCmbo.setBackground(Color.WHITE);
-	        ownerCmbo.setBounds(320, 130, 150, 20);
+	        ownerCmbo.setBounds(870, 80, 150, 20);
 	        infoPanel.add(ownerCmbo);
-	        	        
+	        
+	        wetLbl = new JLabel("Wetback:");
+	        wetLbl.setBounds(800, 110, 70, 20);
+	        infoPanel.add(wetLbl);
+	        wetChk = new JCheckBox("");
+	        wetChk.setSelected(false);
+	        wetChk.setBounds(870, 110, 150, 20);
+	        infoPanel.add(wetChk);
+	        
+	        fireIDLbl = new JLabel("Fire Code:");
+	        fireIDLbl.setBounds(300, 140, 70, 20);
+	        infoPanel.add(fireIDLbl);
+	        fireIDTxtBx = new JTextField(10);
+	        fireIDTxtBx.setBounds(370, 140, 150, 20);
+	        infoPanel.add(fireIDTxtBx);
+	        
+	        makeLbl = new JLabel("Make:");
+	        makeLbl.setBounds(550, 140, 70, 20);
+	        infoPanel.add(makeLbl);
+	        makeTxtBx = new JTextField(10);
+	        makeTxtBx.setBounds(620, 140, 150, 20);
+	        infoPanel.add(makeTxtBx);
+	        
+	        modelLbl = new JLabel("Model:");
+	        modelLbl.setBounds(800, 140, 70, 20);
+	        infoPanel.add(modelLbl);
+	        modelTxtBx = new JTextField(10);
+	        modelTxtBx.setBounds(870, 140, 150, 20);
+	        infoPanel.add(modelTxtBx);
+	        
+	        lifeLbl = new JLabel("Life Time:");
+	        lifeLbl.setBounds(300, 170, 70, 20);
+	        infoPanel.add(lifeLbl);
+	        lifeTxtBx = new JTextField(10);
+	        lifeTxtBx.setBounds(370, 170, 150, 20);
+	        infoPanel.add(lifeTxtBx);
+	        
+	        ecanLbl = new JLabel("ECAN:");
+	        ecanLbl.setBounds(550, 170, 70, 20);
+	        infoPanel.add(ecanLbl);
+	        ecanTxtBx = new JTextField(10);
+	        ecanTxtBx.setBounds(620, 170, 150, 20);
+	        infoPanel.add(ecanTxtBx);
+	        
+	        nelsonLbl = new JLabel("Nelson:");
+	        nelsonLbl.setBounds(800, 170, 70, 20);
+	        infoPanel.add(nelsonLbl);
+	        nelsonTxtBx = new JTextField(10);
+	        nelsonTxtBx.setBounds(870, 170, 150, 20);
+	        infoPanel.add(nelsonTxtBx);
+	            	        	           	        
 	        fireLbl = new JLabel("Fire Type:");
-	        fireLbl.setBounds(250, 160, 70, 20);
+	        fireLbl.setBounds(550, 200, 70, 20);
 	        infoPanel.add(fireLbl);
 	        fireCmbo = new JComboBox(firestyle);
 	        fireCmbo.setSelectedIndex(0);
 	        fireCmbo.setBackground(Color.WHITE);
-	        fireCmbo.setBounds(320, 160, 150, 20);
+	        fireCmbo.setBounds(620, 200, 150, 20);
 	        infoPanel.add(fireCmbo);
 	        
 	        fuelLbl = new JLabel("Fuel:");
-	        fuelLbl.setBounds(250, 190, 70, 20);
+	        fuelLbl.setBounds(800, 200, 70, 20);
 	        infoPanel.add(fuelLbl);
 	        fuelCmbo = new JComboBox(fueltype);
 	        fuelCmbo.setSelectedIndex(0);
 	        fuelCmbo.setBackground(Color.WHITE);
-	        fuelCmbo.setBounds(320, 190, 150, 20);
+	        fuelCmbo.setBounds(870, 200, 150, 20);
 	        infoPanel.add(fuelCmbo);
 	        
-	        wetLbl = new JLabel("Wetback:");
-	        wetLbl.setBounds(250, 220, 70, 20);
-	        infoPanel.add(wetLbl);
-	        wetChk = new JCheckBox("");
-	        wetChk.setSelected(false);
-	        wetChk.setBounds(320, 220, 150, 20);
-	        infoPanel.add(wetChk);
+
        	  	
 	        header= permitsTbl.getTableHeader();
 	        columnModel = header.getColumnModel();
@@ -221,19 +271,12 @@ class PermitsReqPanel extends JPanel {
 		  	this.add(permitsTbl.getTableHeader(), BorderLayout.NORTH);        
 		  	this.add(infoPanel, BorderLayout.SOUTH);
 		  	
-	   //     infoPanel.add(dpTxtBx, BorderLayout.WEST);
-		  	
 		  	permitsTbl.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 				@Override
 				public void valueChanged(ListSelectionEvent arg0) {
 					if (!arg0.getValueIsAdjusting()){
-			    //    if (permitsTbl.getSelectedRow() > 0) {
-			            // print first column value from selected row
 						param = permitsTbl.getValueAt(permitsTbl.getSelectedRow(), 0).toString();
-			       // 	detailsTxtArea.append("\n" + param);
 			        	updatePermitDetails(param);
-			           // System.out.println(permitsTbl.getValueAt(permitsTbl.getSelectedRow(), 0).toString());
-			   //     }
 					}
 				}
 		  	});
@@ -269,13 +312,13 @@ class PermitsReqPanel extends JPanel {
 	        }	  	
  	}	
 		
+		
 		private void updatePermitDetails(String parameter) {
 	        try
 	        {
 	        	Connection conn = connecting.CreateConnection();
-	        	PreparedStatement st =conn.prepareStatement(result + parameter);
-	        	ResultSet rs2 = st.executeQuery();
-
+	        	PreparedStatement st2 =conn.prepareStatement(result2 + parameter);
+	        	ResultSet rs2 = st2.executeQuery();
 	    
 	                //Retrieve by column name
 	        	 while(rs2.next()){
@@ -300,7 +343,59 @@ class PermitsReqPanel extends JPanel {
 	    	        locationTxtBx.setText(rs2.getString("Fire_Location"));
 	    	        valueTxtBx.setText(rs2.getString("Value"));	                
 	        	 }
-	        	
+	        	 
+	        	 
+		        	PreparedStatement st3 =conn.prepareStatement(result3 + parameter);
+		        	
+		        	ResultSet rs3 = null;
+		        	rs3 = st3.executeQuery();
+		    
+		        	 while(rs3.next()){
+		        		 
+		        	if (!rs3.getString("FireID").equals(parameter)){
+		                //Retrieve by column name
+		        		fireIDTxtBx.setText("");
+		        		makeTxtBx.setText("");
+		        		makeTxtBx.setText("");
+		        		modelTxtBx.setText("");
+		    	        ecanTxtBx.setText("");
+		    	        nelsonTxtBx.setText("");
+		    	        lifeTxtBx.setText("");
+		    	        fireCmbo.setSelectedIndex(0);
+		    	        fireCmbo.setSelectedIndex(0);
+		        	
+		        		fireIDTxtBx.setText(rs3.getString("FireID"));
+		        		makeTxtBx.setText(rs3.getString("Make"));
+		        		makeTxtBx.setText(rs3.getString("Make"));
+		        		modelTxtBx.setText(rs3.getString("Model"));
+		    	        ecanTxtBx.setText(rs3.getString("ECAN"));
+		    	        nelsonTxtBx.setText(rs3.getString("Nelson"));
+		   // 	        lifeTxtBx.setText(rs2.getString("Life"));
+		    	        
+		    	        String ft = rs3.getString("FireType");
+		    	        if (ft.equals("FS")){
+		    	        	fireCmbo.setSelectedIndex(0);
+		    	        } else if(ft.equals("IS")){
+		    	        	fireCmbo.setSelectedIndex(1);
+		    	        } else if(ft.equals("IB")){
+		    	        	fireCmbo.setSelectedIndex(2);
+		    	        } else{
+		    	        	fireCmbo.setSelectedIndex(3);
+		    	        }
+		    	        
+		    	        String fl = rs3.getString("Fuel");
+		    	        if (fl.equals("Wood")){
+		    	        	fireCmbo.setSelectedIndex(0);
+		    	        } else if(fl.equals("Pellet")){
+		    	        	fireCmbo.setSelectedIndex(1);
+		    	        } else if(fl.equals("Oil")){
+		    	        	fireCmbo.setSelectedIndex(2);
+		    	        } else{
+		    	        	fireCmbo.setSelectedIndex(3);
+		    	        }
+		        	 }
+		        } 
+		        
 	        	conn.close();	
 	        }
 	        catch(Exception ex)
