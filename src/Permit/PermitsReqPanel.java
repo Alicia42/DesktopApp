@@ -49,6 +49,7 @@ class PermitsReqPanel extends JPanel {
 	
 	private JTableHeader header;
 	private TableColumnModel columnModel;
+	private JPanel tablePanel;
 	private JPanel infoPanel;
 	private JTable permitsTbl;
 	private DefaultTableModel model;
@@ -109,9 +110,17 @@ class PermitsReqPanel extends JPanel {
 	        permitsTbl.setAutoCreateRowSorter(true);
 	        
 	        JScrollPane scrollPane = new JScrollPane(permitsTbl);
+		  
+	        header= permitsTbl.getTableHeader();
+	        columnModel = header.getColumnModel();
+	        add(header); 
 	                	        
+	        tablePanel = new JPanel();
+	        tablePanel.setBounds(20, 20, 1025, 260);  //setPreferredSize(new Dimension(0, 300));      
+	        tablePanel.setLayout(new BorderLayout());
+	        
 	        infoPanel = new JPanel();
-	        infoPanel.setPreferredSize(new Dimension(0, 300));
+	        infoPanel.setBounds(0, 280, 1100, 300);  //setPreferredSize(new Dimension(0, 300));
 	        infoPanel.setLayout(null);
 	        
 	        detailsTxtArea = new JTextArea("");
@@ -120,12 +129,6 @@ class PermitsReqPanel extends JPanel {
 	        detailsTxtArea.setLineWrap(true);
 	        detailsTxtArea.setEditable(false);
 	        infoPanel.add(detailsTxtArea);
-	        
-	        detailsTxtArea.append("Text in this Box:\n");
-	        detailsTxtArea.append("Will be client details appended from a sql\nquery\n");
-	        detailsTxtArea.append("lines end with \\n \n");
-	        detailsTxtArea.append("Or they dont finish \n");
-	        detailsTxtArea.append("They will wrap (badly) if too long!");
      	        
 	        lotLbl = new JLabel("Lot:");
 	        lotLbl.setBounds(300, 20, 70, 20);
@@ -155,25 +158,25 @@ class PermitsReqPanel extends JPanel {
 	        buildingTxtBx.setBounds(370, 50, 150, 20);
 	        infoPanel.add(buildingTxtBx);
 	        
-	        levelLbl = new JLabel("Unit/Level:");
-	        levelLbl.setBounds(550, 50, 70, 20);
+	        levelLbl = new JLabel("Unit/Level:");	  
+	        levelLbl.setBounds(550, 50, 70, 20);	
 	        infoPanel.add(levelLbl);
-	        levelTxtBx = new JTextField(10);
-	        levelTxtBx.setBounds(620, 50, 150, 20);
+	        levelTxtBx = new JTextField(10);		
+	        levelTxtBx.setBounds(620, 50, 150, 20);	
 	        infoPanel.add(levelTxtBx);
 	        
-	        valueLbl = new JLabel("Value:");
-	        valueLbl.setBounds(800, 50, 70, 20);
+	        valueLbl = new JLabel("Value:");	      
+	        valueLbl.setBounds(800, 50, 70, 20);  
 	        infoPanel.add(valueLbl);
-	        valueTxtBx = new JTextField(10);
-	        valueTxtBx.setBounds(870, 50, 150, 20);
+	        valueTxtBx = new JTextField(10);	    
+	        valueTxtBx.setBounds(870, 50, 150, 20);	
 	        infoPanel.add(valueTxtBx);
 	        	        
-	        yearLbl = new JLabel("Year:");
-	        yearLbl.setBounds(300, 80, 70, 20);
+	        yearLbl = new JLabel("Year:");	           
+	        yearLbl.setBounds(300, 80, 70, 20);	
 	        infoPanel.add(yearLbl);
-	        yearTxtBx = new JTextField(10);
-	        yearTxtBx.setBounds(370, 80, 150, 20);
+	        yearTxtBx = new JTextField(10);	         
+	        yearTxtBx.setBounds(370, 80, 150, 20); 
 	        infoPanel.add(yearTxtBx);
 	        
 	        locationLbl = new JLabel("Location:");
@@ -261,15 +264,13 @@ class PermitsReqPanel extends JPanel {
 	        infoPanel.add(fuelCmbo);
 	        
 
-       	  	
-	        header= permitsTbl.getTableHeader();
-	        columnModel = header.getColumnModel();
-	        add(header); 
+	        this.setLayout(null);
+	        this.add(tablePanel); 
+	        this.add(infoPanel);
 	        
-	        this.setLayout(new BorderLayout()); // unless already there
-		  	this.add(scrollPane, BorderLayout.CENTER);
-		  	this.add(permitsTbl.getTableHeader(), BorderLayout.NORTH);        
-		  	this.add(infoPanel, BorderLayout.SOUTH);
+		  	tablePanel.add(scrollPane, BorderLayout.CENTER);
+		  	tablePanel.add(permitsTbl.getTableHeader(), BorderLayout.NORTH);        
+	//	  	this.add(infoPanel, BorderLayout.SOUTH);
 		  	
 		  	permitsTbl.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 				@Override
@@ -286,7 +287,7 @@ class PermitsReqPanel extends JPanel {
 	  	
 	  }
 	  
-	  private void spaceHeader() {
+	    private void spaceHeader() {
 	        int i;
 	        TableColumn tabCol = columnModel.getColumn(0);
 	        for (i=0; i<columnWidth.length; i++){

@@ -21,10 +21,10 @@ public class PermitPane extends JPanel
         {
     		//Adding Jpanels to the SAles panel area 
     		JTabbedPane permitP = new JTabbedPane();
-    		permitP.setPreferredSize(new Dimension(1080, 570));
+    		permitP.setPreferredSize(new Dimension(1070, 610));
     		permitP.addTab("Permits Required", new PermitsReqPanel());
     		permitP.addTab("Recieve Permits", new RecvPermitPanel());
-    		permitP.addTab("Produce Statement", new ProdStatementPanel());
+    		permitP.addTab("Producer Statement", new ProdStatementPanel());
     		permitP.addTab("CCC to Council", new CCCToCounPanel());
     		permitP.addTab("CCC Approved", new CCCApprovedPanel());
     		permitP.addTab("CCC to Client", new CCCToClientPanel());

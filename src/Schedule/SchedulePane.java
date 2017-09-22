@@ -16,7 +16,7 @@ public class SchedulePane extends JPanel
 		
 		//Adding Jpanels to the SAles panel area 
         JTabbedPane scheduleP = new JTabbedPane();
-        scheduleP.setPreferredSize(new Dimension(1060, 570));
+        scheduleP.setPreferredSize(new Dimension(1070, 570));
         scheduleP.addTab("Install Schedule", new TimeTablePanel());
         scheduleP.addTab("Site Checks", new ViewSiteChecksPanel());
         

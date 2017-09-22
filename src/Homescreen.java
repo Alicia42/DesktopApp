@@ -46,8 +46,8 @@ public class Homescreen extends JFrame {
         btnPanel = new JPanel();
         btnPanel.setBackground(Mycolour);
         System.out.println(Color.red+ " "+ Mycolour);
-        btnPanel.setBounds(0, 0, 1100, 50);
-        btnPanel.setPreferredSize(new Dimension(1100, 50));
+        btnPanel.setBounds(0, 0, 1100, 40);
+        btnPanel.setPreferredSize(new Dimension(1100, 40));
         getContentPane().add(btnPanel);
         
         // creating JButtons in the main button JPanel (blue)
@@ -64,8 +64,8 @@ public class Homescreen extends JFrame {
         // creating main content JPanel (red)
         contentPanel = new JPanel();
         contentPanel.setBackground(Color.red);
-        contentPanel.setBounds(0, 40, 1100, 600);
-        contentPanel.setPreferredSize(new Dimension(1100, 600));
+        contentPanel.setBounds(0, 40, 1100, 630);
+        contentPanel.setPreferredSize(new Dimension(1100, 630));
         getContentPane().add(contentPanel);
         
         // creating new panel objects from the panel classes containing their content
