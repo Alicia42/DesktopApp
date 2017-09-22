@@ -28,9 +28,14 @@ public class Homescreen extends JFrame {
     private SalesPane salesPanel;
     private InstallsPane installPanel;
     private PermitPane permitPanel;
+    
+    public Color Mycolour;
 
     public Homescreen() {
 
+    	Mycolour = Color.decode("#66c6ff");
+    	//Mycolour = new Color(255,0,0);
+    	
         // setting up JFrame
         getContentPane().setLayout(null);
         setPreferredSize(new Dimension(1100, 700));
@@ -39,7 +44,8 @@ public class Homescreen extends JFrame {
     
         // creating main button JPanel (blue)
         btnPanel = new JPanel();
-        btnPanel.setBackground(Color.PINK);
+        btnPanel.setBackground(Mycolour);
+        System.out.println(Color.red+ " "+ Mycolour);
         btnPanel.setBounds(0, 0, 1100, 50);
         btnPanel.setPreferredSize(new Dimension(1100, 50));
         getContentPane().add(btnPanel);
@@ -58,7 +64,7 @@ public class Homescreen extends JFrame {
         // creating main content JPanel (red)
         contentPanel = new JPanel();
         contentPanel.setBackground(Color.red);
-        contentPanel.setBounds(0, 80, 1100, 600);
+        contentPanel.setBounds(0, 40, 1100, 600);
         contentPanel.setPreferredSize(new Dimension(1100, 600));
         getContentPane().add(contentPanel);
         
