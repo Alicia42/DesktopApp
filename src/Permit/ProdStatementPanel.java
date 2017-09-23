@@ -23,81 +23,19 @@ import DB_Comms.CreateConnection;
 
 class ProdStatementPanel extends JPanel {
 
-	private JTableHeader header;
-	private TableColumnModel columnModel;
-	private JPanel infoPanel;
-	private JPanel tablePanel;
-	private JTable permitsTbl;
-	private DefaultTableModel model;
-	
-	private JTextArea detailsTxtArea;
-	
-	private JLabel lotLbl;
-	private JTextField lotTxtBx;
-	private JLabel dpLbl;
-	private JTextField dpTxtBx;
-	private JLabel consentLbl;
-	private JTextField consentTxtBx;
-	
-	private JLabel buildingLbl;
-	private JTextField buildingTxtBx;
-	private JLabel levelLbl;
-	private JTextField levelTxtBx;
-	private JLabel valueLbl;
-	private JTextField valueTxtBx;
-	
-	private JLabel yearLbl;
-	private JTextField yearTxtBx;
-	private JLabel locationLbl;
-	private JTextField locationTxtBx;
-	private JLabel fireIDLbl;
-	private JTextField fireIDTxtBx;
-	
-	private JLabel makeLbl;
-	private JTextField makeTxtBx;
-	private JLabel modelLbl;
-	private JTextField modelTxtBx;
-    
-	private JLabel lifeLbl;
-	private JTextField lifeTxtBx;	
-	private JLabel ecanLbl;
-	private JTextField ecanTxtBx;
-	private JLabel nelsonLbl;
-	private JTextField nelsonTxtBx;
-	
-	private JLabel ownerLbl;
-	private JComboBox ownerCmbo;
-	private JLabel fireLbl;
-	private JComboBox fireCmbo;
-	private JLabel fuelLbl;
-	private JComboBox fuelCmbo;
-	private JLabel wetLbl;
-	private JCheckBox wetChk;
+
 	
 
 	  public ProdStatementPanel() {
 		  
-	//	  connecting = new CreateConnection();
-	  	 		  	
-		    model = new DefaultTableModel();  
-		    model.setRowCount(0);
-	        permitsTbl = new JTable(model);
-	        permitsTbl.setPreferredSize(new Dimension(0, 300));
-	        permitsTbl.setAutoCreateRowSorter(true);
-	        
-	        JScrollPane scrollPane = new JScrollPane(permitsTbl);
-	                	        
-	        tablePanel = new JPanel();
-	        tablePanel.setBounds(20, 20, 1000, 300);
-	        tablePanel.setBackground(Color.red);
-	        tablePanel.setLayout(new BorderLayout());
-	        
-	        infoPanel = new JPanel();
-	        infoPanel.setBounds(320, 20, 1000, 300);  //setPreferredSize(new Dimension(0, 300));
-	        infoPanel.setBackground(Color.green);
-	        infoPanel.setLayout(null);
-	        
-	        add(tablePanel);
-	        add(infoPanel);
-	  }
+			JButton b1 = new JButton("New York");
+			add(b1);
+			JButton b2 = new JButton("London");
+			add(b2);
+			JButton b3 = new JButton("Hong Kong");
+			add(b3);
+			JButton b4 = new JButton("Tokyo");
+			add(b4);
+		}
+	  
 }

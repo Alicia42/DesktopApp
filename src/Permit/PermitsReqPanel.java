@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
@@ -31,15 +32,16 @@ import javax.swing.table.TableColumnModel;
 
 import net.proteanit.sql.DbUtils;
 import DB_Comms.CreateConnection;
+import Main.*;
 
 
 class PermitsReqPanel extends JPanel {
 	
 	private int [] columnWidth = {6, 30, 30, 20, 20, 20};
-	private String procedure = "EXEC AWS_WCH_DB.dbo.[p_PermitsRequired]";  
 	private String result2 = "EXEC AWS_WCH_DB.dbo.[p_PermitsDetails] ";
 	private String result3 = "EXEC AWS_WCH_DB.dbo.[p_PermitFire] ";
 	private String param = "";  
+	private ResultSet rs;
 	
 	private String[] doctype = {"NONE","Rates Notice","Certificate of Title", "Lease Agreement", "Sale & Purchase", "Other"};
 	private String[] firestyle = {"FS","IS", "IB","Other"};
@@ -52,7 +54,7 @@ class PermitsReqPanel extends JPanel {
 	private JPanel tablePanel;
 	private JPanel infoPanel;
 	private JTable permitsTbl;
-	private DefaultTableModel model;
+	private DefaultTableModel model1;
 	
 	private JTextArea detailsTxtArea;
 	
@@ -98,14 +100,31 @@ class PermitsReqPanel extends JPanel {
 	private JLabel wetLbl;
 	private JCheckBox wetChk;
 	
+	private JButton prntConsentBtn; 
+	private JButton cancelPermitReqBtn; 
+	private JButton savePermitReqBtn; 
+	
+	private String user = "";
+	private String pass = "";
+	private String dbURL = "";
+	
 
-	  public PermitsReqPanel() {
-		  
+	  public PermitsReqPanel(ConnDetails conDeets, PermitPane pp)
+      {   
+      	//Get User connection details
+  		user = conDeets.getUser();
+  		pass = conDeets.getPass();
+  		dbURL = conDeets.getURL();
+  		
+/*  		System.out.println("user  : " + user);
+  		System.out.println("pass  : " + pass);
+  		System.out.println("dbURL : " + dbURL);
+*/		  
 		  connecting = new CreateConnection();
 	  	 		  	
-		    model = new DefaultTableModel();  
-		    model.setRowCount(0);
-	        permitsTbl = new JTable(model);
+		    model1 = new DefaultTableModel();  
+		    model1.setRowCount(0);
+	        permitsTbl = new JTable(model1);
 	        permitsTbl.setPreferredSize(new Dimension(0, 300));
 	        permitsTbl.setAutoCreateRowSorter(true);
 	        
@@ -131,138 +150,149 @@ class PermitsReqPanel extends JPanel {
 	        infoPanel.add(detailsTxtArea);
      	        
 	        lotLbl = new JLabel("Lot:");
-	        lotLbl.setBounds(300, 20, 70, 20);
+	        lotLbl.setBounds(305, 20, 70, 20);
 	        infoPanel.add(lotLbl);
 	        lotTxtBx = new JTextField(10);
-	        lotTxtBx.setBounds(370, 20, 150, 20);
+	        lotTxtBx.setBounds(375, 20, 150, 20);
 	        infoPanel.add(lotTxtBx);
 	        
 	        dpLbl = new JLabel("DP:");
-	        dpLbl.setBounds(550, 20, 70, 20);
+	        dpLbl.setBounds(565, 20, 70, 20);
 	        infoPanel.add(dpLbl);
 	        dpTxtBx = new JTextField(10);
-	        dpTxtBx.setBounds(620, 20, 150, 20);
+	        dpTxtBx.setBounds(635, 20, 150, 20);
 	        infoPanel.add(dpTxtBx);
 	        
 	        consentLbl = new JLabel("Consent:");
-	        consentLbl.setBounds(800, 20, 70, 20);
+	        consentLbl.setBounds(825, 20, 70, 20);
 	        infoPanel.add(consentLbl);
 	        consentTxtBx = new JTextField(10);
-	        consentTxtBx.setBounds(870, 20, 150, 20);
+	        consentTxtBx.setBounds(895, 20, 150, 20);
 	        infoPanel.add(consentTxtBx);
 	        
 	        buildingLbl = new JLabel("Building:");
-	        buildingLbl.setBounds(300, 50, 70, 20);
+	        buildingLbl.setBounds(305, 50, 70, 20);
 	        infoPanel.add(buildingLbl);
 	        buildingTxtBx = new JTextField("Residence", 10);
-	        buildingTxtBx.setBounds(370, 50, 150, 20);
+	        buildingTxtBx.setBounds(375, 50, 150, 20);
 	        infoPanel.add(buildingTxtBx);
 	        
 	        levelLbl = new JLabel("Unit/Level:");	  
-	        levelLbl.setBounds(550, 50, 70, 20);	
+	        levelLbl.setBounds(565, 50, 70, 20);	
 	        infoPanel.add(levelLbl);
 	        levelTxtBx = new JTextField(10);		
-	        levelTxtBx.setBounds(620, 50, 150, 20);	
+	        levelTxtBx.setBounds(635, 50, 150, 20);	
 	        infoPanel.add(levelTxtBx);
 	        
 	        valueLbl = new JLabel("Value:");	      
-	        valueLbl.setBounds(800, 50, 70, 20);  
+	        valueLbl.setBounds(825, 50, 70, 20);  
 	        infoPanel.add(valueLbl);
 	        valueTxtBx = new JTextField(10);	    
-	        valueTxtBx.setBounds(870, 50, 150, 20);	
+	        valueTxtBx.setBounds(895, 50, 150, 20);	
 	        infoPanel.add(valueTxtBx);
 	        	        
 	        yearLbl = new JLabel("Year:");	           
-	        yearLbl.setBounds(300, 80, 70, 20);	
+	        yearLbl.setBounds(305, 80, 70, 20);	
 	        infoPanel.add(yearLbl);
 	        yearTxtBx = new JTextField(10);	         
-	        yearTxtBx.setBounds(370, 80, 150, 20); 
+	        yearTxtBx.setBounds(375, 80, 150, 20); 
 	        infoPanel.add(yearTxtBx);
 	        
 	        locationLbl = new JLabel("Location:");
-	        locationLbl.setBounds(550, 80, 70, 20);
+	        locationLbl.setBounds(565, 80, 70, 20);
 	        infoPanel.add(locationLbl);
 	        locationTxtBx = new JTextField(10);
-	        locationTxtBx.setBounds(620, 80, 150, 20);
+	        locationTxtBx.setBounds(635, 80, 150, 20);
 	        infoPanel.add(locationTxtBx);
 	        	        	        
 	        ownerLbl = new JLabel("Proof:");
-	        ownerLbl.setBounds(800, 80, 70, 20);
+	        ownerLbl.setBounds(825, 80, 70, 20);
 	        infoPanel.add(ownerLbl);
 	        ownerCmbo = new JComboBox(doctype);
 	        ownerCmbo.setSelectedIndex(0);
 	        ownerCmbo.setBackground(Color.WHITE);
-	        ownerCmbo.setBounds(870, 80, 150, 20);
+	        ownerCmbo.setBounds(895, 80, 150, 20);
 	        infoPanel.add(ownerCmbo);
 	        
 	        wetLbl = new JLabel("Wetback:");
-	        wetLbl.setBounds(800, 110, 70, 20);
+	        wetLbl.setBounds(825, 110, 70, 20);
 	        infoPanel.add(wetLbl);
 	        wetChk = new JCheckBox("");
 	        wetChk.setSelected(false);
-	        wetChk.setBounds(870, 110, 150, 20);
+	        wetChk.setBounds(895, 110, 150, 20);
 	        infoPanel.add(wetChk);
 	        
 	        fireIDLbl = new JLabel("Fire Code:");
-	        fireIDLbl.setBounds(300, 140, 70, 20);
+	        fireIDLbl.setBounds(305, 140, 70, 20);
 	        infoPanel.add(fireIDLbl);
 	        fireIDTxtBx = new JTextField(10);
-	        fireIDTxtBx.setBounds(370, 140, 150, 20);
+	        fireIDTxtBx.setBounds(375, 140, 150, 20);
 	        infoPanel.add(fireIDTxtBx);
 	        
 	        makeLbl = new JLabel("Make:");
-	        makeLbl.setBounds(550, 140, 70, 20);
+	        makeLbl.setBounds(565, 140, 70, 20);
 	        infoPanel.add(makeLbl);
 	        makeTxtBx = new JTextField(10);
-	        makeTxtBx.setBounds(620, 140, 150, 20);
+	        makeTxtBx.setBounds(635, 140, 150, 20);
 	        infoPanel.add(makeTxtBx);
 	        
 	        modelLbl = new JLabel("Model:");
-	        modelLbl.setBounds(800, 140, 70, 20);
+	        modelLbl.setBounds(825, 140, 70, 20);
 	        infoPanel.add(modelLbl);
 	        modelTxtBx = new JTextField(10);
-	        modelTxtBx.setBounds(870, 140, 150, 20);
+	        modelTxtBx.setBounds(895, 140, 150, 20);
 	        infoPanel.add(modelTxtBx);
 	        
 	        lifeLbl = new JLabel("Life Time:");
-	        lifeLbl.setBounds(300, 170, 70, 20);
+	        lifeLbl.setBounds(305, 170, 70, 20);
 	        infoPanel.add(lifeLbl);
 	        lifeTxtBx = new JTextField(10);
-	        lifeTxtBx.setBounds(370, 170, 150, 20);
+	        lifeTxtBx.setBounds(375, 170, 150, 20);
 	        infoPanel.add(lifeTxtBx);
 	        
 	        ecanLbl = new JLabel("ECAN:");
-	        ecanLbl.setBounds(550, 170, 70, 20);
+	        ecanLbl.setBounds(565, 170, 70, 20);
 	        infoPanel.add(ecanLbl);
 	        ecanTxtBx = new JTextField(10);
-	        ecanTxtBx.setBounds(620, 170, 150, 20);
+	        ecanTxtBx.setBounds(635, 170, 150, 20);
 	        infoPanel.add(ecanTxtBx);
 	        
 	        nelsonLbl = new JLabel("Nelson:");
-	        nelsonLbl.setBounds(800, 170, 70, 20);
+	        nelsonLbl.setBounds(825, 170, 70, 20);
 	        infoPanel.add(nelsonLbl);
 	        nelsonTxtBx = new JTextField(10);
-	        nelsonTxtBx.setBounds(870, 170, 150, 20);
+	        nelsonTxtBx.setBounds(895, 170, 150, 20);
 	        infoPanel.add(nelsonTxtBx);
 	            	        	           	        
 	        fireLbl = new JLabel("Fire Type:");
-	        fireLbl.setBounds(550, 200, 70, 20);
+	        fireLbl.setBounds(565, 200, 70, 20);
 	        infoPanel.add(fireLbl);
 	        fireCmbo = new JComboBox(firestyle);
 	        fireCmbo.setSelectedIndex(0);
 	        fireCmbo.setBackground(Color.WHITE);
-	        fireCmbo.setBounds(620, 200, 150, 20);
+	        fireCmbo.setBounds(635, 200, 150, 20);
 	        infoPanel.add(fireCmbo);
 	        
 	        fuelLbl = new JLabel("Fuel:");
-	        fuelLbl.setBounds(800, 200, 70, 20);
+	        fuelLbl.setBounds(825, 200, 70, 20);
 	        infoPanel.add(fuelLbl);
 	        fuelCmbo = new JComboBox(fueltype);
 	        fuelCmbo.setSelectedIndex(0);
 	        fuelCmbo.setBackground(Color.WHITE);
-	        fuelCmbo.setBounds(870, 200, 150, 20);
+	        fuelCmbo.setBounds(895, 200, 150, 20);
 	        infoPanel.add(fuelCmbo);
 	        
+	        prntConsentBtn = new JButton("Print Consent");
+	        prntConsentBtn.setBounds(545, 260, 150, 25);
+	        infoPanel.add(prntConsentBtn);
+	        
+	        cancelPermitReqBtn = new JButton("Cancel");
+	        cancelPermitReqBtn.setBounds(720, 260, 150, 25);
+	        infoPanel.add(cancelPermitReqBtn);
+	        
+	        savePermitReqBtn = new JButton("Save Permit Details");
+	        savePermitReqBtn.setBounds(895, 260, 150, 25);
+	        infoPanel.add(savePermitReqBtn);
 
 	        this.setLayout(null);
 	        this.add(tablePanel); 
@@ -282,9 +312,9 @@ class PermitsReqPanel extends JPanel {
 				}
 		  	});
 		  	
-	       updatePermitsRequired();
-	       spaceHeader();
-	  	
+		  	rs = pp.getTableData();		  	
+		  	permitsTbl.setModel(DbUtils.resultSetToTableModel(rs));  	
+		  	spaceHeader();
 	  }
 	  
 	    private void spaceHeader() {
@@ -297,7 +327,7 @@ class PermitsReqPanel extends JPanel {
 	        header.repaint();
 	  }
 	  
-		private void updatePermitsRequired() {
+/*		private void readPermitsRequired() {
 	        try
 	        {
 	        	Connection conn = connecting.CreateConnection();
@@ -312,7 +342,7 @@ class PermitsReqPanel extends JPanel {
 	        JOptionPane.showMessageDialog(null, ex.toString());
 	        }	  	
  	}	
-		
+		*/
 		
 		private void updatePermitDetails(String parameter) {
 	        try

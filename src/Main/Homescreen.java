@@ -1,3 +1,4 @@
+package Main;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -7,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import Main.ConnDetails;
 import Schedule.SchedulePane;
 import Sales.SalesPane;
 import Installs.InstallsPane;
@@ -41,6 +43,7 @@ public class Homescreen extends JFrame {
  	    
  	    //PASS THE LOGIN DETAILS TO Class connectionDetails
  	   ConnDetails conDeets = new ConnDetails(user, pass);
+ 	   
     	
 
     	Mycolour = Color.decode("#66c6ff");
@@ -80,7 +83,7 @@ public class Homescreen extends JFrame {
         schedulePanel = new SchedulePane(); 
         salesPanel = new SalesPane();  
         installPanel = new InstallsPane();
-  //      permitPanel = new PermitPane();
+        permitPanel = new PermitPane(conDeets);
        // permitPanel = new PermitPane();
         
         
