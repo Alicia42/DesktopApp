@@ -317,7 +317,7 @@ class PermitsReqPanel extends JPanel {
 		  	spaceHeader();
 	  }
 	  
-	    private void spaceHeader() {
+	    public void spaceHeader() {
 	        int i;
 	        TableColumn tabCol = columnModel.getColumn(0);
 	        for (i=0; i<columnWidth.length; i++){
@@ -326,6 +326,12 @@ class PermitsReqPanel extends JPanel {
 	        }
 	        header.repaint();
 	  }
+	    
+	    public JTable getPermitsTbl(){
+	    	return permitsTbl;
+	    }
+	    
+	    
 	  
 /*		private void readPermitsRequired() {
 	        try

@@ -45,10 +45,6 @@ class RecvPermitPanel extends JPanel {
 	private String param = "";  
 	private ResultSet rs;
 	
-	private String[] doctype = {"NONE","Rates Notice","Certificate of Title", "Lease Agreement", "Sale & Purchase", "Other"};
-	private String[] firestyle = {"FS","IS", "IB","Other"};
-	private String[] fueltype = {"Wood","Pellet", "Oil","Other"};
-	
 	private CreateConnection connecting;
 	
 	private JTableHeader header;
@@ -63,10 +59,9 @@ class RecvPermitPanel extends JPanel {
 	private JLabel consentLbl;
 	private JTextField consentTxtBx;
 
-	private JLabel wetLbl;
-	private JCheckBox wetChk;
+	private JLabel receivedLbl;
+	private JCheckBox receivedChk;
 	
-	private JButton prntConsentBtn; 
 	private JButton cancelPermitReqBtn; 
 	private JButton savePermitReqBtn; 
 	
@@ -118,17 +113,13 @@ class RecvPermitPanel extends JPanel {
 	        consentTxtBx.setBounds(895, 20, 150, 20);
 	        infoPanel.add(consentTxtBx);
 	        
-	        wetLbl = new JLabel("Wetback:");
-	        wetLbl.setBounds(825, 110, 70, 20);
-	        infoPanel.add(wetLbl);
-	        wetChk = new JCheckBox("");
-	        wetChk.setSelected(false);
-	        wetChk.setBounds(895, 110, 150, 20);
-	        infoPanel.add(wetChk);
-	        
-	        prntConsentBtn = new JButton("Print Consent");
-	        prntConsentBtn.setBounds(545, 260, 150, 25);
-	        infoPanel.add(prntConsentBtn);
+	        receivedLbl = new JLabel("Wetback:");
+	        receivedLbl.setBounds(825, 110, 70, 20);
+	        infoPanel.add(receivedLbl);
+	        receivedChk = new JCheckBox("");
+	        receivedChk.setSelected(false);
+	        receivedChk.setBounds(895, 110, 150, 20);
+	        infoPanel.add(receivedChk);
 	        
 	        cancelPermitReqBtn = new JButton("Cancel");
 	        cancelPermitReqBtn.setBounds(720, 260, 150, 25);
@@ -161,7 +152,7 @@ class RecvPermitPanel extends JPanel {
 		  	spaceHeader();
 	  }
 	  
-	    private void spaceHeader() {
+	    public void spaceHeader() {
 	        int i;
 	        TableColumn tabCol = columnModel.getColumn(0);
 	        for (i=0; i<columnWidth.length; i++){
@@ -171,22 +162,10 @@ class RecvPermitPanel extends JPanel {
 	        header.repaint();
 	  }
 	  
-/*		private void readPermitsRequired() {
-	        try
-	        {
-	        	Connection conn = connecting.CreateConnection();
-	        	PreparedStatement st =conn.prepareStatement(procedure);
-	        	ResultSet rs = st.executeQuery();
-	        	permitsTbl.setModel(DbUtils.resultSetToTableModel(rs));
-	      
-	        	conn.close();	
-	        }
-	        catch(Exception ex)
-	        { 
-	        JOptionPane.showMessageDialog(null, ex.toString());
-	        }	  	
- 	}	
-		*/
+	    
+	    public JTable getPermitsTbl(){
+	    	return permitsTbl;
+	    }
 		
 	private void updatePermitDetails(String parameter) {
 	        try
