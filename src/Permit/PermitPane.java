@@ -89,7 +89,7 @@ public class PermitPane extends JPanel
     		permitP.addTab("CCC to Client", cccToClient);
     		add(permitP); 
 
-    		getResults(0);  
+    	//	getResults(0);  
     		
     		permitP.addChangeListener(new ChangeListener() {
 
@@ -115,6 +115,8 @@ public class PermitPane extends JPanel
                     }
                 }
             });
+    		
+    		
         }
         
         

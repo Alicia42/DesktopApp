@@ -315,6 +315,9 @@ class PermitsReqPanel extends JPanel {
 		  	rs = pp.getTableData();		  	
 		  	permitsTbl.setModel(DbUtils.resultSetToTableModel(rs));  	
 		  	spaceHeader();
+		  	
+		  	permitsTbl.getSelectionModel().setSelectionInterval(0, 1);	
+		  	
 	  }
 	  
 	    public void spaceHeader() {
@@ -326,6 +329,8 @@ class PermitsReqPanel extends JPanel {
 	        }
 	        header.repaint();
 	  }
+	    
+	    
 	    
 	    public JTable getPermitsTbl(){
 	    	return permitsTbl;
